@@ -1,0 +1,48 @@
+.add-product__wrapper {
+    width: 50%;
+    margin: auto;
+}
+
+.add-product__title   {
+    text-align: start;
+}
+.add-product__header {
+    display: flex;
+    justify-content: space-around;
+}
+.add-product__list--wrapper.sub-product {
+    padding-left: 30px;
+}
+.add-product__list {
+    display: flex;
+    justify-content: space-between;
+}
+.add-product__dicount .input {
+    width: 30px;
+    padding: 5px;
+    margin-inline-end: 5px;
+}
+.add-product__file-name {
+    position: relative;
+}
+.add-product__file-name .add-product__edit-icon {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    cursor: pointer;
+    background-color: #fff;
+}
+.add-product__btn {
+    text-align: end;
+    margin: 20px 10px;
+}
+.add-product__data {
+    margin-inline: 5px;
+}
+
+.add-product__show-variant {
+    margin-block: 10px;
+    text-align: end;
+    font-size: 14px;
+}
+/* .add-product__list {} */

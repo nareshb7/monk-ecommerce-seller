@@ -1,0 +1,35 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #00000050;
+    
+}
+.modal-content {
+    width: 450px;
+    height: 65vh;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+.modal-header {
+    /* width: 100%; */
+    /* padding: 10px; */
+    margin: 5px 10px;
+    display: flex;
+    height: 30px;
+    
+    justify-content: space-between;
+}
+.modal-footer {
+    height: 50px;
+}
+.modal-body {
+    height: calc(65vh - 80px);
+    overflow: auto;
+}
