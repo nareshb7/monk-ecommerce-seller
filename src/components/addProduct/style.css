@@ -1,49 +1,80 @@
 .add-product__wrapper {
-    width: 30%;
-    margin: auto;
+  width: 30%;
+  margin: auto;
 }
 
-.add-product__title   {
-    text-align: start;
+.add-product__title {
+  text-align: start;
 }
 .add-product__header {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 .add-product__list--wrapper.sub-product {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 .add-product__list {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 5px;
 }
 .add-product__dicount .input {
-    width: 30px;
-    padding: 5px;
-    margin-inline-end: 5px;
+  width: 30px;
+  padding: 5px;
+  margin-inline-end: 5px;
 }
+.VARIANT .add-product__dicount .input {
+    border-radius: 10px;
+
+  }
 .add-product__file-name {
-    position: relative;
+  position: relative;
+  width: 84%;
+}
+.add-product__file-name .add-product__title {
+  padding: 10px;
+  border: 1px solid #888;
+  color: #666;
+  border-radius: 4px;
+  width: 90%;
+  overflow: hidden;
+  display: inline-block;
+}
+.add-product__sl-no, .add-product__drag-icon  {
+  width: 8%;
+}
+.add-product__file-name.VARINAT .add-product__title {
+    border-radius: 10px;
 }
 .add-product__file-name .add-product__edit-icon {
-    position: absolute;
-    right: 5px;
-    top: 1px;
-    cursor: pointer;
-    background-color: #fff;
+  position: absolute;
+  right: 2px;
+  top: 3px;
+  cursor: pointer;
+  background-color: #fff;
 }
 .add-product__btn {
-    text-align: end;
-    margin: 20px 10px;
+  text-align: end;
+  margin: 20px 10px;
+  /* border: 2px solid #000;
+    border-radius: 5px; */
+}
+.add-product__btn button {
+    border: 2px solid #008060;
+    color: #008060;
 }
 .add-product__data {
-    margin-inline: 5px;
-    white-space: nowrap;
+  margin-inline: 5px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 60%;
 }
 
 .add-product__show-variant {
-    margin-block: 10px;
-    text-align: end;
-    font-size: 14px;
+  margin-block: 10px;
+  text-align: end;
+  font-size: 14px;
 }
 /* .add-product__list {} */

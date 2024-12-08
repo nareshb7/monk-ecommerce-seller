@@ -3,9 +3,12 @@ import { DragIcon } from "../../utils/constants";
 import { ProductSchema, ProductVariant } from "../productList/mockData";
 export interface ProductCardProps {
   product: ProductSchema | ProductVariant;
-  handleEditClick?: (product: ProductSchema) => void;
+  handleEditClick?: (idx: number) => void;
   index: number;
   type: "PRODUCT" | "VARIANT";
+  onDragStart: (e: React.DragEvent<HTMLSpanElement>, idx: number) => void;
+  onDrop: (e: React.DragEvent<HTMLDivElement>, idx: number) => void;
+  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -13,45 +16,82 @@ const ProductCard: React.FC<ProductCardProps> = ({
   type,
   index,
   handleEditClick,
+  onDragOver,
+  onDragStart,
+  onDrop,
 }) => {
   const [showDiscount, setShowDiscount] = useState(false);
   const [showVariant, setShowVariant] = useState(false);
+  const [dragIndex, setDragIndex] = useState(-1);
   const handleVariant = () => {
     setShowVariant((prev) => !prev);
   };
+  const handleDragStart = (
+    e: React.DragEvent<HTMLSpanElement>,
+    idx: number
+  ) => {
+    setDragIndex(idx);
+  };
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, idx: number) => {
+    const variants = (product as ProductSchema)?.variants;
+    if (idx !== dragIndex) {
+      if (variants) {
+        const data = variants?.find((_, i) => i === dragIndex);
+        variants.splice(dragIndex, 1);
+        variants.splice(idx, 0, data as ProductVariant);
+        setDragIndex(-1);
+      }
+    }
+  };
+
   return (
-    <div className={`add-product__list--wrapper ${type === "VARIANT" && "sub-product"}`}>
-      <div className="add-product__list">
+    <div
+      className={`add-product__list--wrapper ${
+        type === "VARIANT" && "sub-product"
+      }`}
+    >
+      <div
+        className={`add-product__list ${
+          type === "VARIANT" ? "VARIANT" : "PRODUCT"
+        }`}
+        onDrop={(e) => onDrop(e, index)}
+        onDragOver={onDragOver}
+      >
         <div className="add-product__data">
-          <span className="add-product__drag-icon " draggable>
-          <DragIcon />
+          <span
+            className="add-product__drag-icon "
+            draggable
+            onDragStart={(e) => onDragStart(e, index)}
+          >
+            <DragIcon />
           </span>
           <span className="add-product__sl-no">{index + 1}.</span>
-          <span className="add-product__file-name">
-            <input
-              type="text"
-              value={product.title}
-              placeholder="Select Product"
-              className="input"
-            />
+          <div className="add-product__file-name">
+            <span className="add-product__title">{product.title}</span>
             {type === "PRODUCT" && (
               <span
                 className="add-product__edit-icon"
                 onClick={() =>
-                  handleEditClick && handleEditClick(product as ProductSchema)
+                  handleEditClick && handleEditClick(index)
                 }
               >
                 <i className="fa fa-pencil" />
               </span>
             )}
-          </span>
+          </div>
         </div>
         <div>
           {showDiscount ? (
             <span className="add-product__dicount">
               <input className="input" value={"20"} />
               <input className="input" type="text" value="%Off" />
-              <span onClick={() => setShowDiscount(false)}>
+              <span
+                onClick={() => setShowDiscount(false)}
+                style={{ cursor: "pointer" }}
+              >
                 <i className="fa fa-close" />
               </span>
             </span>
@@ -74,7 +114,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {showVariant && (
         <div>
           {(product as ProductSchema)?.variants?.map((variant, idx) => (
-            <ProductCard product={variant} type="VARIANT" index={idx} />
+            <ProductCard
+              key={variant.id}
+              product={variant}
+              type="VARIANT"
+              index={idx}
+              onDragOver={handleDragOver}
+              onDragStart={handleDragStart}
+              onDrop={handleDrop}
+            />
           ))}
         </div>
       )}

@@ -3,7 +3,7 @@ import AddProduct from '../../components/addProduct'
 
 const Home = () => {
   return (
-    <div>Home
+    <div>
         <AddProduct />
     </div>
   )

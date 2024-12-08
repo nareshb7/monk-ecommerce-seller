@@ -9,6 +9,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #eee;
+    padding-left: 25px;
 }
 .product-list__search .search-icon {
     position: absolute;
@@ -46,6 +47,10 @@
     width: 50%;
     /* margin-left: 20px; */
 }
+.product-list__wrapper {
+    height: 100%;
+    overflow: auto;
+}
 .product-list__wrapper input[type="checkbox"] {
     padding: 20px;
 }
@@ -54,4 +59,17 @@
     justify-content: space-around;
     align-items: center;
     padding: 10px;
+}
+
+.product-list__footer .add {
+    background: #008060;
+    color: #fff;
+    padding: 5px 15px;
+    border: 1px solid #008060;
+}
+.product-list__footer .cancel {
+    background-color: #fff;
+    color: #008060;
+    padding: 5px 15px;
+    border: 1px solid #008060;
 }
