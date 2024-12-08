@@ -23,7 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div className={`add-product__list--wrapper ${type === "VARIANT" && "sub-product"}`}>
       <div className="add-product__list">
         <div className="add-product__data">
-          <span className="add-product__drag-icon ">
+          <span className="add-product__drag-icon " draggable>
           <DragIcon />
           </span>
           <span className="add-product__sl-no">{index + 1}.</span>

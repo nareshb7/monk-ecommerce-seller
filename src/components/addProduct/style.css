@@ -1,5 +1,5 @@
 .add-product__wrapper {
-    width: 50%;
+    width: 30%;
     margin: auto;
 }
 
@@ -11,7 +11,7 @@
     justify-content: space-around;
 }
 .add-product__list--wrapper.sub-product {
-    padding-left: 30px;
+    padding-left: 15px;
 }
 .add-product__list {
     display: flex;
@@ -38,6 +38,7 @@
 }
 .add-product__data {
     margin-inline: 5px;
+    white-space: nowrap;
 }
 
 .add-product__show-variant {
