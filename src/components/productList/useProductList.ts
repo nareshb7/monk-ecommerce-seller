@@ -7,21 +7,18 @@ import React, {
 } from "react";
 import { debounce, ProductListProps } from ".";
 import { useProductContext } from "../../context";
-import { ProductSchema, ProductVariant } from "./mockData";
+import { ProductSchema, ProductVariant } from "./type";
 const LIMIT = 10;
 
 const useProductList = ({ onAdd }: ProductListProps) => {
-  const { productList, setProductList } =
-    useProductContext();
-  const [selectedProducts, setSelectedProducts] = useState<Record<number, number[]>>([])
+  const { productList, setProductList } = useProductContext();
+  const [selectedProducts, setSelectedProducts] = useState<
+    Record<number, number[]>
+  >([]);
   const productListRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [pageNum, setPageNum] = useState(1);
-  // const [data, setData] = useState<ProductSchema[]>(mockProduct);
-  // const [selectedProducts, setSelectedProducts] = useState<
-  //   Record<number, number[]>
-  // >({});
   const [search, setSearch] = useState("");
 
   const getProductData = async (
@@ -60,13 +57,21 @@ const useProductList = ({ onAdd }: ProductListProps) => {
     getProductData(val);
   }, []);
 
+  const loadMore = useCallback((search: string, pageNum: number) => {
+    getProductData(search, pageNum, true);
+  }, []);
+
+  const debounceLoadMore = useMemo(() => debounce(loadMore, 1000), []);
+
   const debounceSearch = useMemo(() => debounce(getSearchData, 1000), []);
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("val::::");
     const { value } = e.target;
     setSearch(value);
     debounceSearch(value);
   };
+
   const handleSelect = (product: ProductSchema) => {
     if (selectedProducts[product.id]) {
       const newIds = { ...selectedProducts };
@@ -79,9 +84,9 @@ const useProductList = ({ onAdd }: ProductListProps) => {
           [product.id]: [...product.variants.map((variant) => variant.id)],
         };
       });
-      
     }
   };
+
   const handleSubProductChange = (parentId: number, subId: number) => {
     if (selectedProducts[parentId]) {
       const list = [...selectedProducts[parentId]];
@@ -99,9 +104,10 @@ const useProductList = ({ onAdd }: ProductListProps) => {
       setSelectedProducts({ ...selectedProducts });
     }
   };
+
   const handleAdd = () => {
     const selectedData = Object.keys(selectedProducts).map((productId) => {
-      const selected = productList?.find((li) => li.id === Number(productId));
+      const selected = productList?.find((li) => li.id === Number(productId)) as ProductSchema;
       if (selected) {
         const selectedVariants: ProductVariant[] = selected?.variants.filter(
           (variant) => selectedProducts[Number(productId)]?.includes(variant.id)
@@ -114,10 +120,6 @@ const useProductList = ({ onAdd }: ProductListProps) => {
     onAdd(selectedData || []);
   };
 
-  const loadMore = useCallback((search: string, pageNum: number) => {
-    getProductData(search, pageNum, true);
-  }, []);
-  const debounceLoadMore = useMemo(() => debounce(loadMore, 1000), []);
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } =
       productListRef.current as HTMLDivElement;
@@ -129,6 +131,7 @@ const useProductList = ({ onAdd }: ProductListProps) => {
       debounceLoadMore(search, pageNum + 1);
     }
   };
+
   useEffect(() => {
     if (productListRef.current) {
       productListRef.current.addEventListener("scroll", handleScroll);
@@ -139,9 +142,11 @@ const useProductList = ({ onAdd }: ProductListProps) => {
       }
     };
   }, [productList, isLoading, pageNum, hasMoreData]);
+
   useEffect(() => {
-     getProductData()
+    getProductData();
   }, []);
+
   return {
     productListRef,
     productList,

@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
-import { mockProduct, ProductSchema } from "../components/productList/mockData";
+import { ProductSchema } from "../components/productList/type";
 
 export interface ContextWrapperProps {
   children: ReactNode;
@@ -16,7 +16,7 @@ export const ProductContext = createContext<ProductContextInterface | null>(
 );
 
 const ContextWrapper: React.FC<ContextWrapperProps> = ({ children }) => {
-    const [productList, setProductList] = useState<ProductSchema[]>(mockProduct);
+    const [productList, setProductList] = useState<ProductSchema[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<
     Record<number, number[]>
   >({});

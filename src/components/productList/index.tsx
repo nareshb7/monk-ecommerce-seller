@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "../../common/modal";
-import { ProductSchema } from "./mockData";
+import { ProductSchema } from "./type";
 import "./style.css";
 import useProductList from "./useProductList";
 
@@ -32,7 +32,9 @@ const ProductList: React.FC<ProductListProps> = ({ onClose, onAdd }) => {
     handleAdd,
     handleSearch,
   } = useProductList({ onClose, onAdd });
+
   const len = Object.keys(selectedProducts).length;
+
   const Footer = () => {
     return (
       <div className="product-list__footer">

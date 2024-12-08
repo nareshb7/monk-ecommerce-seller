@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useProductContext } from "../../context";
 import { DragIcon } from "../../utils/constants";
 import ProductList from "../productList";
-import { ProductSchema } from "../productList/mockData";
+import { ProductSchema } from "../productList/type";
 import ProductCard from "./ProductCard";
 import "./style.css";
 

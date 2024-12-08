@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DragIcon } from "../../utils/constants";
-import { ProductSchema, ProductVariant } from "../productList/mockData";
+import { ProductSchema, ProductVariant } from "../productList/type";
 export interface ProductCardProps {
   product: ProductSchema | ProductVariant;
   handleEditClick?: (idx: number) => void;
